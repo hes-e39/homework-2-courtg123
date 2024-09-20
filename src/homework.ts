@@ -4,7 +4,7 @@
  * @param b - The second number.
  * @returns The sum of a and b as a number
  */
-export const addTwoNumbers = (a: number, b?: number): number => {
+export const addTwoNumbers = (a: number, b: number = 0): number => {
   return a + b;
 };
 
@@ -14,7 +14,7 @@ export const addTwoNumbers = (a: number, b?: number): number => {
 //  * @returns The sum of the numbers.
 //  */
 export const sumArray = (numbers: (number | string)[]): number => {
-  return numbers.reduce((acc, curr) => acc + curr, 0);
+  return numbers.reduce((acc: number, curr: number | string) => acc + Number(curr), 0);
 };
 
 // Create type "Person" with the following properties:
@@ -56,8 +56,14 @@ export const isUser = (u: AllPeople): u is User => {
  * @returns A greeting message
  */
 export const userGreetingMessage = (u: AllPeople) => {
-  return "hello";
   // if "Admin"
+  if ("isAdmin" in u) {
+    return `Hello, ${u.name}. You are an admin.`;
+  } else if ("type" in u && u.type === 'user') {
   // if "User"
+    return `Hello, ${u.name}. You are a user.`;
+  } else {
   // if "Person"
+    return `Hello, ${u.name}. You do not have access.`;
+  }
 };
